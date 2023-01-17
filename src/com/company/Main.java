@@ -39,9 +39,12 @@ public class Main {
         //System.out.println("Найти позицию по ID");
         //System.out.println(positionsDao.findById(1));
 
+        System.out.println("Вывод всех позиции");
+        System.out.println(positionsDao.findAll());
+
         //EMPLOYEE
-        System.out.println("Вывод всех сотрудников");
-        System.out.println(employeeDao.findAll());
+        //System.out.println("Вывод всех сотрудников");
+        //System.out.println(employeeDao.findAll());
 
     }
 }

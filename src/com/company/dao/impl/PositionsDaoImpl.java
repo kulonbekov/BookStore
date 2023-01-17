@@ -5,6 +5,7 @@ import com.company.model.Genre;
 import com.company.model.Positions;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PositionsDaoImpl implements PositionsDao {
@@ -53,7 +54,36 @@ public class PositionsDaoImpl implements PositionsDao {
 
     @Override
     public List<Positions> findAll() {
-        return null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Connection connection = getConnection();
+        List<Positions> positionsList = new ArrayList<>();
+
+
+
+        try {
+            String query = "SELECT * FROM positions";
+            preparedStatement = connection.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                Positions positions = new Positions();
+                positions.setId(resultSet.getLong("id"));
+                positions.setName(resultSet.getString("name"));
+                positions.setActive(resultSet.getBoolean("is_active"));
+                positionsList.add(positions);
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            close(resultSet);
+            close(preparedStatement);
+            close(connection);
+        }
+
+        return positionsList;
     }
 
     @Override
